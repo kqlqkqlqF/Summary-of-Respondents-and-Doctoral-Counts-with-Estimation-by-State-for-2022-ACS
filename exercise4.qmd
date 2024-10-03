@@ -90,10 +90,15 @@ california_row <- final_dataset[final_dataset$State == "California", ]
 doc_ratio_Califor <- california_row$Doctoral_Count / california_row$Total_Num
 
 # Calculate and round the estimate_doctoral column to integers
-final_dataset$estimate_doctoral <- round(final_dataset$Total_Num * doc_ratio_Califor)
+final_dataset$estimate_repondent <- round(final_dataset$Doctoral_Count / doc_ratio_Califor)
 
 # Add the doctoral_difference column by subtracting estimate_doctoral from Doctoral_Count
-final_dataset$doctoral_difference <- final_dataset$Doctoral_Count - final_dataset$estimate_doctoral
+final_dataset$respondent_difference <- final_dataset$Total_Num - final_dataset$estimate_repondent
+
+
+
+
+
 
 
 
@@ -108,13 +113,13 @@ final_dataset$doctoral_difference <- final_dataset$Doctoral_Count - final_datase
 # Create a table using kable
 kable(final_dataset, 
       col.names = c("State", "Total Respondents", "Total Actual Doctor", 
-                    "Estimated Doctor", "Difference in Doctor"))
+                    "Estimated Respondents", "Difference in Respondents"))
 
 ```
 
 # Estimation
 
-We start by matching STATEICP to the state name and getting the actual value for each state and replacing NA with 0. Select California's row from the actual values we get, using the number of doctoral degrees in the California data as a percentage of total respondents to get a ratio. Finally, the doctoral degree and the proportion of total respondents obtained in California are mapped to each state, and the estimated doctoral degree of each state is obtained from the total respondents of each state. The doctoral difference column is obtained by comparing the value we obtained with the actual value.
+We start by matching STATEICP to the state name and getting the actual value for each state and replacing NA with 0. Select California's row from the actual values we get, using the number of doctoral degrees in the California data as a percentage of total respondents to get a ratio. Finally, the doctoral degree and the proportion of total respondents obtained in California are mapped to each state, and the estimated total respondents of each state is obtained from the doctoral degree of each state. The respondents difference column is obtained by comparing the value we obtained with the actual value.
 
 # Explanation of the Difference 
 
